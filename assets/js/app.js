@@ -10,6 +10,25 @@ const countryContainerRow = document.getElementById('countryContainerRow');
 // we can use two endpoints
 const BASE_URL = `https://restcountries.com/v3.1/all`;
 
+function toggleSpinner(flag) {
+  if (flag === true){
+     loader.classList.remove("d-none")
+  } else{
+     loader.classList.add("d-none")
+ 
+  }
+}
+
+
+function snackbar(title, icon) {
+  Swal.fire({
+    title,
+    icon,
+    timer: 1500,
+  });
+}
+
+
 //HTML FILE 
 // country.html?code="IND" -> KEY & VALUES => query params ,: 1VALUE IS params->(:ID)
 //We will get query params -> IND -> API call -> templeting 
@@ -17,6 +36,7 @@ const BASE_URL = `https://restcountries.com/v3.1/all`;
 
 (async function fetchAllCountries() {
     try {
+       toggleSpinner(true);
         // we dont use/add query params  like that there some other ways to add it 
         // /in angular -> new HttpParams().set() use this set ?query params in headers
         // find the way how set query params in js..!!
@@ -55,6 +75,11 @@ const BASE_URL = `https://restcountries.com/v3.1/all`;
                 <div class="country-code"> Code:${c.cca2}</div>
              </div>
              </div>`
+             col.addEventListener('click',()=>{
+              // cl(c.cca2)
+              window.location.href = `country.html?code=${c.cca2}&test=testQueryParams`
+             })
+
             countryContainerRow.append(col);
         })
         // cl("  250_Data For Ui :",data)
@@ -63,6 +88,9 @@ const BASE_URL = `https://restcountries.com/v3.1/all`;
         cl('Something Went Wrong In Data !!!')
 
     }
+     finally {
+    toggleSpinner(false);
+  }
 })()
 
 
