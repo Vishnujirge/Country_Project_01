@@ -1,17 +1,15 @@
 const singlec = document.getElementById("countryrow");
 const loader = document.getElementById("loader");
 
-// Spinner
 function toggelSpineer(flag) {
   flag ? loader.classList.remove("d-none") : loader.classList.add("d-none");
 }
 
-// Read ?code=XXX
 const param = new URLSearchParams(window.location.search);
 const code = param.get("code");
 const countryurl = `https://restcountries.com/v3.1/alpha/${code}`;
 
-// Fetch wrapper
+
 const make = async (apiURL) => {
   try {
     toggelSpineer(true);
@@ -25,12 +23,11 @@ const make = async (apiURL) => {
 
     return data;
   } finally {
-    // ❌ wrong: toggelSpineer(true)
+   
     toggelSpineer(false);
   }
 };
 
-// Main function
 async function fetchcountry() {
   try {
     toggelSpineer(true);
